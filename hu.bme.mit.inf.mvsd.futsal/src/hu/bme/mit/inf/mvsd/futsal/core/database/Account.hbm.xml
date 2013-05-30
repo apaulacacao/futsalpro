@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013.05.25. 20:05:45 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="hu.bme.mit.mvsd.futsal.core.database.Account" table="Account" catalog="futsaldb">
+        <id name="id" type="java.lang.Integer">
+            <column name="Id" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="string">
+            <column name="Name" length="45" not-null="true" />
+        </property>
+        <property name="birthdate" type="date">
+            <column name="Birthdate" length="10" not-null="true" />
+        </property>
+        <property name="address" type="string">
+            <column name="Address" length="250" />
+        </property>
+        <property name="email" type="string">
+            <column name="Email" length="45" />
+        </property>
+        <property name="phone" type="string">
+            <column name="Phone" length="20" />
+        </property>
+        <set name="players" table="Player" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="AccId" not-null="true" />
+            </key>
+            <one-to-many class="hu.bme.mit.mvsd.futsal.core.database.Player" />
+        </set>
+        <set name="supervisors" table="Supervisor" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="AccId" not-null="true" />
+            </key>
+            <one-to-many class="hu.bme.mit.mvsd.futsal.core.database.Supervisor" />
+        </set>
+        <set name="goalKeepers" table="GoalKeeper" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="AccId" not-null="true" />
+            </key>
+            <one-to-many class="hu.bme.mit.mvsd.futsal.core.database.GoalKeeper" />
+        </set>
+        <set name="crews" table="Crew" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="AccId" not-null="true" />
+            </key>
+            <one-to-many class="hu.bme.mit.mvsd.futsal.core.database.Crew" />
+        </set>
+        <set name="referees" table="Referee" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="AccId" not-null="true" />
+            </key>
+            <one-to-many class="hu.bme.mit.mvsd.futsal.core.database.Referee" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+encoding/.classpath=Cp1250
+encoding//.settings/org.eclipse.core.resources.prefs=Cp1250
+encoding//.settings/org.eclipse.jdt.core.prefs=Cp1250
+encoding//.settings/org.eclipse.xtend.shared.ui.prefs=Cp1250
+encoding//META-INF/MANIFEST.MF=Cp1250
+encoding//src/org/yakindu/sct/generator/xpand/Main.xpt=Cp1250
+encoding/<project>=Cp1250
+encoding/build.properties=Cp1250
+encoding/scoreboard.sct=UTF-8

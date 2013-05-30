@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013.05.25. 20:05:45 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="hu.bme.mit.mvsd.futsal.core.database.CrewRole" table="CrewRole" catalog="futsaldb">
+        <id name="id" type="int">
+            <column name="Id" />
+            <generator class="assigned" />
+        </id>
+        <property name="name" type="string">
+            <column name="Name" length="45" not-null="true" />
+        </property>
+        <property name="nameEn" type="string">
+            <column name="NameEN" length="45" />
+        </property>
+        <property name="nameHu" type="string">
+            <column name="NameHU" length="45" />
+        </property>
+        <set name="crews" table="Crew" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="RoleId" />
+            </key>
+            <one-to-many class="hu.bme.mit.mvsd.futsal.core.database.Crew" />
+        </set>
+    </class>
+</hibernate-mapping>

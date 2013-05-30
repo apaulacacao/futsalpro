@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application
+      	cardinality="singleton-global"
+      	thread="main"
+      	visible="true">
+         <run
+               class="hu.bme.mit.inf.mvsd.futsal.application.Application">
+         </run>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="hu.bme.mit.inf.mvsd.futsal.application.views.InitReport"
+            id="hu.bme.mit.mvsd.futsal.application.InitReport"
+            name="Jegyzőkönyv kitöltése">
+      </view>
+   </extension>
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="hu.bme.mit.mvsd.futsal.application.application"
+            name="Futsal Pro">
+         <property
+               name="appName"
+               value="Futsal Pro">
+         </property>
+         <property
+               name="aboutImage"
+               value="icons/about.gif">
+         </property>
+         <property
+               name="aboutText"
+               value="A Futsal Pro egy interaktív futsal jegyzőkönyvező és eredményjelző program.&#x0A;&#x0A;Készítette:&#x0A;Molnár Vince&#x0A;Segesdi Dániel&#x0A;©MVSD 2013">
+         </property>
+         <property
+               name="windowImages"
+               value="icons/icon16.gif,icons/icon32.gif,icons/icon48.gif,icons/icon64.gif,icons/icon128.gif">
+         </property>
+      </product>
+   </extension>
+   <extension
+         id="FutsalPro"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="hu.bme.mit.inf.mvsd.futsal.application.application"
+            name="Futsal Pro">
+         <property
+               name="windowImages"
+               value="icons/icon16.gif,icons/icon32.gif,icons/icon48.gif,icons/icon64.gif,icons/icon128.gif">
+         </property>
+         <property
+               name="aboutText"
+               value="A Futsal Pro egy interaktív futsal jegyzőkönyvező és eredményjelző program.&#x0A;&#x0A;Készítette:&#x0A;Molnár Vince&#x0A;Segesdi Dániel&#x0A;©MVSD 2013">
+         </property>
+         <property
+               name="aboutImage"
+               value="icons/about.gif">
+         </property>
+         <property
+               name="appName"
+               value="Futsal Pro">
+         </property>
+      </product>
+   </extension>
+
+</plugin>

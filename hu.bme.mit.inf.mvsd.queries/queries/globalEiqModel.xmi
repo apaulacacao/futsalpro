@@ -1,0 +1,2858 @@
+<?xml version="1.0" encoding="ASCII"?>
+<eMFPatternLanguage:PatternModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eMFPatternLanguage="http://www.eclipse.org/incquery/patternlanguage/emf/EMFPatternLanguage" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:patternLanguage="http://www.eclipse.org/incquery/patternlanguage/PatternLanguage" xmlns:types="http://www.eclipse.org/xtext/common/JavaVMTypes" xmlns:xbase="http://www.eclipse.org/xtext/xbase/Xbase">
+  <patterns name="hu.bme.mit.inf.mvsd.TeamGoals" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="team">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+      </type>
+    </parameters>
+    <parameters name="goal">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Goal"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Goal"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Goal/scorerTeam"/>
+            </type>
+          </tail>
+          <src var="goal"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="team"/>
+          </dst>
+        </head>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.TeamGoalCount" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="team">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+      </type>
+    </parameters>
+    <parameters name="goalCount"/>
+    <bodies>
+      <constraints xsi:type="patternLanguage:CompareConstraint">
+        <leftOperand xsi:type="patternLanguage:VariableValue">
+          <value var="goalCount"/>
+        </leftOperand>
+        <rightOperand xsi:type="patternLanguage:AggregatedValue">
+          <aggregator xsi:type="patternLanguage:CountAggregator"/>
+          <call patternRef="//@patterns.0">
+            <parameters xsi:type="patternLanguage:VariableValue">
+              <value var="team"/>
+            </parameters>
+            <parameters xsi:type="patternLanguage:VariableValue">
+              <value var="_"/>
+            </parameters>
+          </call>
+        </rightOperand>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.TeamGoalsHalfTime" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="team">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+      </type>
+    </parameters>
+    <parameters name="goal">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Goal"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.0">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="team"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="goal"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Goal"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="goal"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="timestamp"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CheckConstraint">
+        <expression xsi:type="xbase:XBinaryOperation">
+          <feature xsi:type="types:JvmOperation" href="java:/Objects/org.eclipse.xtext.xbase.lib.IntegerExtensions#org.eclipse.xtext.xbase.lib.IntegerExtensions.operator_lessThan(int,int)"/>
+          <leftOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.2/@bodies.0/@variables.2"/>
+          <rightOperand xsi:type="xbase:XNumberLiteral" value="1200"/>
+        </expression>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.TeamGoalCountHalftime" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="team">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+      </type>
+    </parameters>
+    <parameters name="goalCount"/>
+    <bodies>
+      <constraints xsi:type="patternLanguage:CompareConstraint">
+        <leftOperand xsi:type="patternLanguage:VariableValue">
+          <value var="goalCount"/>
+        </leftOperand>
+        <rightOperand xsi:type="patternLanguage:AggregatedValue">
+          <aggregator xsi:type="patternLanguage:CountAggregator"/>
+          <call patternRef="//@patterns.2">
+            <parameters xsi:type="patternLanguage:VariableValue">
+              <value var="team"/>
+            </parameters>
+            <parameters xsi:type="patternLanguage:VariableValue">
+              <value var="_"/>
+            </parameters>
+          </call>
+        </rightOperand>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.TeamGoalsInitialTime" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="team">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+      </type>
+    </parameters>
+    <parameters name="goal">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Goal"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.0">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="team"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="goal"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Goal"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="goal"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="timestamp"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CheckConstraint">
+        <expression xsi:type="xbase:XBinaryOperation">
+          <feature xsi:type="types:JvmOperation" href="java:/Objects/org.eclipse.xtext.xbase.lib.IntegerExtensions#org.eclipse.xtext.xbase.lib.IntegerExtensions.operator_lessThan(int,int)"/>
+          <leftOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.4/@bodies.0/@variables.2"/>
+          <rightOperand xsi:type="xbase:XNumberLiteral" value="2400"/>
+        </expression>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.TeamGoalCountInitialTime" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="team">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+      </type>
+    </parameters>
+    <parameters name="goalCount"/>
+    <bodies>
+      <constraints xsi:type="patternLanguage:CompareConstraint">
+        <leftOperand xsi:type="patternLanguage:VariableValue">
+          <value var="goalCount"/>
+        </leftOperand>
+        <rightOperand xsi:type="patternLanguage:AggregatedValue">
+          <aggregator xsi:type="patternLanguage:CountAggregator"/>
+          <call patternRef="//@patterns.4">
+            <parameters xsi:type="patternLanguage:VariableValue">
+              <value var="team"/>
+            </parameters>
+            <parameters xsi:type="patternLanguage:VariableValue">
+              <value var="_"/>
+            </parameters>
+          </call>
+        </rightOperand>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.TeamFaults" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="team">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+      </type>
+    </parameters>
+    <parameters name="fault">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Fault"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Fault"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Fault/player"/>
+            </type>
+            <tail>
+              <type xsi:type="eMFPatternLanguage:ReferenceType">
+                <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//TeamMember/team"/>
+              </type>
+            </tail>
+          </tail>
+          <src var="fault"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="team"/>
+          </dst>
+        </head>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.TeamFaultsFirstHalf" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="team">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+      </type>
+    </parameters>
+    <parameters name="fault">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Fault"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.6">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="team"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="fault"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Fault"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="fault"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="timestamp"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CheckConstraint">
+        <expression xsi:type="xbase:XBinaryOperation">
+          <feature xsi:type="types:JvmOperation" href="java:/Objects/org.eclipse.xtext.xbase.lib.IntegerExtensions#org.eclipse.xtext.xbase.lib.IntegerExtensions.operator_lessThan(int,int)"/>
+          <leftOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.7/@bodies.0/@variables.2"/>
+          <rightOperand xsi:type="xbase:XNumberLiteral" value="1200"/>
+        </expression>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.TeamFaultCountFirstHalf" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="team">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+      </type>
+    </parameters>
+    <parameters name="faultCount"/>
+    <bodies>
+      <constraints xsi:type="patternLanguage:CompareConstraint">
+        <leftOperand xsi:type="patternLanguage:VariableValue">
+          <value var="faultCount"/>
+        </leftOperand>
+        <rightOperand xsi:type="patternLanguage:AggregatedValue">
+          <aggregator xsi:type="patternLanguage:CountAggregator"/>
+          <call patternRef="//@patterns.7">
+            <parameters xsi:type="patternLanguage:VariableValue">
+              <value var="team"/>
+            </parameters>
+            <parameters xsi:type="patternLanguage:VariableValue">
+              <value var="_"/>
+            </parameters>
+          </call>
+        </rightOperand>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.TeamFaultsSecondHalf" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="team">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+      </type>
+    </parameters>
+    <parameters name="fault">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Fault"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.6">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="team"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="fault"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Fault"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="fault"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="timestamp"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CheckConstraint">
+        <expression xsi:type="xbase:XBinaryOperation">
+          <feature xsi:type="types:JvmOperation" href="java:/Objects/org.eclipse.xtext.xbase.lib.IntegerExtensions#org.eclipse.xtext.xbase.lib.IntegerExtensions.operator_greaterEqualsThan(int,int)"/>
+          <leftOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.9/@bodies.0/@variables.2"/>
+          <rightOperand xsi:type="xbase:XNumberLiteral" value="1200"/>
+        </expression>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.TeamFaultCountSecondHalf" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="team">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+      </type>
+    </parameters>
+    <parameters name="faultCount"/>
+    <bodies>
+      <constraints xsi:type="patternLanguage:CompareConstraint">
+        <leftOperand xsi:type="patternLanguage:VariableValue">
+          <value var="faultCount"/>
+        </leftOperand>
+        <rightOperand xsi:type="patternLanguage:AggregatedValue">
+          <aggregator xsi:type="patternLanguage:CountAggregator"/>
+          <call patternRef="//@patterns.9">
+            <parameters xsi:type="patternLanguage:VariableValue">
+              <value var="team"/>
+            </parameters>
+            <parameters xsi:type="patternLanguage:VariableValue">
+              <value var="_"/>
+            </parameters>
+          </call>
+        </rightOperand>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.TeamTimeouts" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="team">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+      </type>
+    </parameters>
+    <parameters name="timeout">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//TimeOut"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//TimeOut"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//TimeOut/team"/>
+            </type>
+          </tail>
+          <src var="timeout"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="team"/>
+          </dst>
+        </head>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.TeamTimeoutsFirstHalf" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="team">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+      </type>
+    </parameters>
+    <parameters name="timeout">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//TimeOut"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.11">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="team"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="timeout"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//TimeOut"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="timeout"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="timestamp"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CheckConstraint">
+        <expression xsi:type="xbase:XBinaryOperation">
+          <feature xsi:type="types:JvmOperation" href="java:/Objects/org.eclipse.xtext.xbase.lib.IntegerExtensions#org.eclipse.xtext.xbase.lib.IntegerExtensions.operator_lessThan(int,int)"/>
+          <leftOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.12/@bodies.0/@variables.2"/>
+          <rightOperand xsi:type="xbase:XNumberLiteral" value="1200"/>
+        </expression>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.TeamTimeoutsSecondHalf" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="team">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+      </type>
+    </parameters>
+    <parameters name="timeout">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//TimeOut"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.11">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="team"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="timeout"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//TimeOut"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="timeout"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="timestamp"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CheckConstraint">
+        <expression xsi:type="xbase:XBinaryOperation">
+          <feature xsi:type="types:JvmOperation" href="java:/Objects/org.eclipse.xtext.xbase.lib.IntegerExtensions#org.eclipse.xtext.xbase.lib.IntegerExtensions.operator_greaterEqualsThan(int,int)"/>
+          <leftOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.13/@bodies.0/@variables.2"/>
+          <rightOperand xsi:type="xbase:XNumberLiteral" value="1200"/>
+        </expression>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.TeamSubstitutions" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="team">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+      </type>
+    </parameters>
+    <parameters name="subst">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Substitution/instead"/>
+            </type>
+            <tail>
+              <type xsi:type="eMFPatternLanguage:ReferenceType">
+                <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//TeamMember/team"/>
+              </type>
+            </tail>
+          </tail>
+          <src var="subst"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="team"/>
+          </dst>
+        </head>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.TeamSubstitutionCount" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="team">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+      </type>
+    </parameters>
+    <parameters name="subsCount"/>
+    <bodies>
+      <constraints xsi:type="patternLanguage:CompareConstraint">
+        <leftOperand xsi:type="patternLanguage:VariableValue">
+          <value var="subsCount"/>
+        </leftOperand>
+        <rightOperand xsi:type="patternLanguage:AggregatedValue">
+          <aggregator xsi:type="patternLanguage:CountAggregator"/>
+          <call patternRef="//@patterns.14">
+            <parameters xsi:type="patternLanguage:VariableValue">
+              <value var="team"/>
+            </parameters>
+            <parameters xsi:type="patternLanguage:VariableValue">
+              <value var="_"/>
+            </parameters>
+          </call>
+        </rightOperand>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.inSubs" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="player">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Player"/>
+      </type>
+    </parameters>
+    <parameters name="substitution">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Substitution/substitute"/>
+            </type>
+          </tail>
+          <src var="substitution"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </dst>
+        </head>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.inSubsAfterSubs" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="player">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Player"/>
+      </type>
+    </parameters>
+    <parameters name="substitution">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+      </type>
+    </parameters>
+    <parameters name="afterSubs">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.16">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="substitution"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.16">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="afterSubs"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="substitution"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="subsTime"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="afterSubs"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="time"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CheckConstraint">
+        <expression xsi:type="xbase:XBinaryOperation">
+          <feature xsi:type="types:JvmOperation" href="java:/Objects/org.eclipse.xtext.xbase.lib.ComparableExtensions#org.eclipse.xtext.xbase.lib.ComparableExtensions.operator_greaterThan(java.lang.Comparable,C)"/>
+          <leftOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.17/@bodies.0/@variables.3"/>
+          <rightOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.17/@bodies.0/@variables.4"/>
+        </expression>
+      </constraints>
+    </bodies>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.16">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="substitution"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.18">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="afterSubs"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="substitution"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="subsTime"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="afterSubs"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="time"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CheckConstraint">
+        <expression xsi:type="xbase:XBinaryOperation">
+          <feature xsi:type="types:JvmOperation" href="java:/Objects/org.eclipse.xtext.xbase.lib.ComparableExtensions#org.eclipse.xtext.xbase.lib.ComparableExtensions.operator_greaterThan(java.lang.Comparable,C)"/>
+          <leftOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.17/@bodies.1/@variables.3"/>
+          <rightOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.17/@bodies.1/@variables.4"/>
+        </expression>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.outSubs" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="player">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Player"/>
+      </type>
+    </parameters>
+    <parameters name="substitution">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Substitution/instead"/>
+            </type>
+          </tail>
+          <src var="substitution"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </dst>
+        </head>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.outSubsAfterSubs" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="player">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Player"/>
+      </type>
+    </parameters>
+    <parameters name="beforeSubs">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+      </type>
+    </parameters>
+    <parameters name="afterSubs">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.18">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="beforeSubs"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.18">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="afterSubs"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="beforeSubs"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="subsTime"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="afterSubs"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="time"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CheckConstraint">
+        <expression xsi:type="xbase:XBinaryOperation">
+          <feature xsi:type="types:JvmOperation" href="java:/Objects/org.eclipse.xtext.xbase.lib.ComparableExtensions#org.eclipse.xtext.xbase.lib.ComparableExtensions.operator_greaterThan(java.lang.Comparable,C)"/>
+          <leftOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.19/@bodies.0/@variables.3"/>
+          <rightOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.19/@bodies.0/@variables.4"/>
+        </expression>
+      </constraints>
+    </bodies>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.18">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="beforeSubs"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.16">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="afterSubs"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="beforeSubs"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="subsTime"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="afterSubs"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="time"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CheckConstraint">
+        <expression xsi:type="xbase:XBinaryOperation">
+          <feature xsi:type="types:JvmOperation" href="java:/Objects/org.eclipse.xtext.xbase.lib.ComparableExtensions#org.eclipse.xtext.xbase.lib.ComparableExtensions.operator_greaterThan(java.lang.Comparable,C)"/>
+          <leftOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.19/@bodies.1/@variables.3"/>
+          <rightOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.19/@bodies.1/@variables.4"/>
+        </expression>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.subs" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="player">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Player"/>
+      </type>
+    </parameters>
+    <parameters name="subs">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.16">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="subs"/>
+          </parameters>
+        </call>
+      </constraints>
+    </bodies>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.18">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="subs"/>
+          </parameters>
+        </call>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.lastInSubs" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="player">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Player"/>
+      </type>
+    </parameters>
+    <parameters name="substitution">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.16">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="substitution"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint" negative="true">
+        <call patternRef="//@patterns.17">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="_"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="substitution"/>
+          </parameters>
+        </call>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.lastOutSubs" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="player">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Player"/>
+      </type>
+    </parameters>
+    <parameters name="substitution">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.18">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="substitution"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint" negative="true">
+        <call patternRef="//@patterns.19">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="_"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="substitution"/>
+          </parameters>
+        </call>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.outSubsAfterLastInSubs" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="player">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Player"/>
+      </type>
+    </parameters>
+    <parameters name="substitution">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.21">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="inSubs"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.19">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="substitution"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="inSubs"/>
+          </parameters>
+        </call>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.inSubsAfterLastOutSubs" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="player">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Player"/>
+      </type>
+    </parameters>
+    <parameters name="substitution">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.21">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="inSubs"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.19">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="substitution"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="inSubs"/>
+          </parameters>
+        </call>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.fieldPlayers" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="team">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+      </type>
+    </parameters>
+    <parameters name="player">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Player"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.26">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="team"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.16">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="_"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint" negative="true">
+        <call patternRef="//@patterns.23">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="_"/>
+          </parameters>
+        </call>
+      </constraints>
+    </bodies>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Team/fieldPlayers"/>
+            </type>
+          </tail>
+          <src var="team"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint" negative="true">
+        <call patternRef="//@patterns.18">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="_"/>
+          </parameters>
+        </call>
+      </constraints>
+    </bodies>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Team/goalKeeper"/>
+            </type>
+          </tail>
+          <src var="team"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint" negative="true">
+        <call patternRef="//@patterns.18">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="_"/>
+          </parameters>
+        </call>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.allPlayers" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="team">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+      </type>
+    </parameters>
+    <parameters name="player">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Player"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Team/fieldPlayers"/>
+            </type>
+          </tail>
+          <src var="team"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </dst>
+        </head>
+      </constraints>
+    </bodies>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Team/goalKeeper"/>
+            </type>
+          </tail>
+          <src var="team"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </dst>
+        </head>
+      </constraints>
+    </bodies>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Team/subtitutePlayers"/>
+            </type>
+          </tail>
+          <src var="team"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </dst>
+        </head>
+      </constraints>
+    </bodies>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Team/subtituteGoalKeepers"/>
+            </type>
+          </tail>
+          <src var="team"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </dst>
+        </head>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.outInOutSubs" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="player">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Player"/>
+      </type>
+    </parameters>
+    <parameters name="out1">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+      </type>
+    </parameters>
+    <parameters name="in">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+      </type>
+    </parameters>
+    <parameters name="out2">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.18">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="out1"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.16">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="in"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.18">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="out2"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="out1"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="outTime1"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="out2"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="outTime2"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="in"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="inTime"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CheckConstraint">
+        <expression xsi:type="xbase:XBinaryOperation">
+          <feature xsi:type="types:JvmOperation" href="java:/Objects/org.eclipse.xtext.xbase.lib.ComparableExtensions#org.eclipse.xtext.xbase.lib.ComparableExtensions.operator_lessThan(java.lang.Comparable,C)"/>
+          <leftOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.27/@bodies.0/@variables.4"/>
+          <rightOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.27/@bodies.0/@variables.5"/>
+        </expression>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CheckConstraint">
+        <expression xsi:type="xbase:XBinaryOperation">
+          <feature xsi:type="types:JvmOperation" href="java:/Objects/org.eclipse.xtext.xbase.lib.ComparableExtensions#org.eclipse.xtext.xbase.lib.ComparableExtensions.operator_lessThan(java.lang.Comparable,C)"/>
+          <leftOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.27/@bodies.0/@variables.4"/>
+          <rightOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.27/@bodies.0/@variables.6"/>
+        </expression>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CheckConstraint">
+        <expression xsi:type="xbase:XBinaryOperation">
+          <feature xsi:type="types:JvmOperation" href="java:/Objects/org.eclipse.xtext.xbase.lib.ComparableExtensions#org.eclipse.xtext.xbase.lib.ComparableExtensions.operator_lessThan(java.lang.Comparable,C)"/>
+          <leftOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.27/@bodies.0/@variables.6"/>
+          <rightOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.27/@bodies.0/@variables.5"/>
+        </expression>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.inOutInSubs" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="player">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Player"/>
+      </type>
+    </parameters>
+    <parameters name="in1">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+      </type>
+    </parameters>
+    <parameters name="out">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+      </type>
+    </parameters>
+    <parameters name="in2">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.16">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="in1"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.18">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="out"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.16">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="in2"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="in1"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="inTime1"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="in2"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="inTime2"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="out"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="outTime"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CheckConstraint">
+        <expression xsi:type="xbase:XBinaryOperation">
+          <feature xsi:type="types:JvmOperation" href="java:/Objects/org.eclipse.xtext.xbase.lib.ComparableExtensions#org.eclipse.xtext.xbase.lib.ComparableExtensions.operator_lessThan(java.lang.Comparable,C)"/>
+          <leftOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.28/@bodies.0/@variables.4"/>
+          <rightOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.28/@bodies.0/@variables.5"/>
+        </expression>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CheckConstraint">
+        <expression xsi:type="xbase:XBinaryOperation">
+          <feature xsi:type="types:JvmOperation" href="java:/Objects/org.eclipse.xtext.xbase.lib.ComparableExtensions#org.eclipse.xtext.xbase.lib.ComparableExtensions.operator_lessThan(java.lang.Comparable,C)"/>
+          <leftOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.28/@bodies.0/@variables.4"/>
+          <rightOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.28/@bodies.0/@variables.6"/>
+        </expression>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CheckConstraint">
+        <expression xsi:type="xbase:XBinaryOperation">
+          <feature xsi:type="types:JvmOperation" href="java:/Objects/org.eclipse.xtext.xbase.lib.ComparableExtensions#org.eclipse.xtext.xbase.lib.ComparableExtensions.operator_lessThan(java.lang.Comparable,C)"/>
+          <leftOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.28/@bodies.0/@variables.6"/>
+          <rightOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.28/@bodies.0/@variables.5"/>
+        </expression>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.betweenInSubs" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="player">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Player"/>
+      </type>
+    </parameters>
+    <parameters name="before">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+      </type>
+    </parameters>
+    <parameters name="mid">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+      </type>
+    </parameters>
+    <parameters name="after">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.16">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="before"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.16">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="mid"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.16">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="after"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="before"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="befTime"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="mid"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="midTime"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="after"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="aftTime"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CheckConstraint">
+        <expression xsi:type="xbase:XBinaryOperation">
+          <feature xsi:type="types:JvmOperation" href="java:/Objects/org.eclipse.xtext.xbase.lib.ComparableExtensions#org.eclipse.xtext.xbase.lib.ComparableExtensions.operator_lessThan(java.lang.Comparable,C)"/>
+          <leftOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.29/@bodies.0/@variables.4"/>
+          <rightOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.29/@bodies.0/@variables.5"/>
+        </expression>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CheckConstraint">
+        <expression xsi:type="xbase:XBinaryOperation">
+          <feature xsi:type="types:JvmOperation" href="java:/Objects/org.eclipse.xtext.xbase.lib.ComparableExtensions#org.eclipse.xtext.xbase.lib.ComparableExtensions.operator_lessThan(java.lang.Comparable,C)"/>
+          <leftOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.29/@bodies.0/@variables.5"/>
+          <rightOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.29/@bodies.0/@variables.6"/>
+        </expression>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CheckConstraint">
+        <expression xsi:type="xbase:XBinaryOperation">
+          <feature xsi:type="types:JvmOperation" href="java:/Objects/org.eclipse.xtext.xbase.lib.ComparableExtensions#org.eclipse.xtext.xbase.lib.ComparableExtensions.operator_lessThan(java.lang.Comparable,C)"/>
+          <leftOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.29/@bodies.0/@variables.4"/>
+          <rightOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.29/@bodies.0/@variables.6"/>
+        </expression>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.betweenOutSubs" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="player">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Player"/>
+      </type>
+    </parameters>
+    <parameters name="before">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+      </type>
+    </parameters>
+    <parameters name="mid">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+      </type>
+    </parameters>
+    <parameters name="after">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.18">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="before"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.18">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="mid"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.18">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="after"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="before"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="befTime"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="mid"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="midTime"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="after"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="aftTime"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CheckConstraint">
+        <expression xsi:type="xbase:XBinaryOperation">
+          <feature xsi:type="types:JvmOperation" href="java:/Objects/org.eclipse.xtext.xbase.lib.ComparableExtensions#org.eclipse.xtext.xbase.lib.ComparableExtensions.operator_lessThan(java.lang.Comparable,C)"/>
+          <leftOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.30/@bodies.0/@variables.4"/>
+          <rightOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.30/@bodies.0/@variables.5"/>
+        </expression>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CheckConstraint">
+        <expression xsi:type="xbase:XBinaryOperation">
+          <feature xsi:type="types:JvmOperation" href="java:/Objects/org.eclipse.xtext.xbase.lib.ComparableExtensions#org.eclipse.xtext.xbase.lib.ComparableExtensions.operator_lessThan(java.lang.Comparable,C)"/>
+          <leftOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.30/@bodies.0/@variables.5"/>
+          <rightOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.30/@bodies.0/@variables.6"/>
+        </expression>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CheckConstraint">
+        <expression xsi:type="xbase:XBinaryOperation">
+          <feature xsi:type="types:JvmOperation" href="java:/Objects/org.eclipse.xtext.xbase.lib.ComparableExtensions#org.eclipse.xtext.xbase.lib.ComparableExtensions.operator_lessThan(java.lang.Comparable,C)"/>
+          <leftOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.30/@bodies.0/@variables.4"/>
+          <rightOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.30/@bodies.0/@variables.6"/>
+        </expression>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.invalidSubsCandidate" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="player">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Player"/>
+      </type>
+    </parameters>
+    <parameters name="current">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+      </type>
+    </parameters>
+    <parameters name="candidate">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.18">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="current"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.18">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="candidate"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CompareConstraint" feature="!=">
+        <leftOperand xsi:type="patternLanguage:VariableValue">
+          <value var="current"/>
+        </leftOperand>
+        <rightOperand xsi:type="patternLanguage:VariableValue">
+          <value var="candidate"/>
+        </rightOperand>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint" negative="true">
+        <call patternRef="//@patterns.27">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="candidate"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="_"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="current"/>
+          </parameters>
+        </call>
+      </constraints>
+    </bodies>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.16">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="current"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.16">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="candidate"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CompareConstraint" feature="!=">
+        <leftOperand xsi:type="patternLanguage:VariableValue">
+          <value var="current"/>
+        </leftOperand>
+        <rightOperand xsi:type="patternLanguage:VariableValue">
+          <value var="candidate"/>
+        </rightOperand>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint" negative="true">
+        <call patternRef="//@patterns.28">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="candidate"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="_"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="current"/>
+          </parameters>
+        </call>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.DuplicateSubstitution" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <parameters name="substitution">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Substitution/substitute"/>
+            </type>
+          </tail>
+          <src var="substitution"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.16">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="candidate"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint" negative="true">
+        <call patternRef="//@patterns.29">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="candidate"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="_"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="substitution"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.28">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="candidate"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="_"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="substitution"/>
+          </parameters>
+        </call>
+      </constraints>
+    </bodies>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Substitution/substitute"/>
+            </type>
+          </tail>
+          <src var="substitution"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.18">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="candidate"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint" negative="true">
+        <call patternRef="//@patterns.30">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="candidate"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="_"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="substitution"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.27">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="candidate"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="_"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="substitution"/>
+          </parameters>
+        </call>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.MatchTeamSubjectInconsistency" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <annotations name="Constraint">
+      <parameters name="message">
+        <value xsi:type="patternLanguage:StringValue" value="The subject of the team is not the containing match!"/>
+      </parameters>
+      <parameters name="location">
+        <value xsi:type="patternLanguage:VariableValue">
+          <value var="team"/>
+        </value>
+      </parameters>
+      <parameters name="severity">
+        <value xsi:type="patternLanguage:StringValue" value="error"/>
+      </parameters>
+    </annotations>
+    <parameters name="match">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Match"/>
+      </type>
+    </parameters>
+    <parameters name="team">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Match"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Match/team1"/>
+            </type>
+          </tail>
+          <src var="match"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="team"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Team/subject"/>
+            </type>
+          </tail>
+          <src var="team"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="subject"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CompareConstraint" feature="!=">
+        <leftOperand xsi:type="patternLanguage:VariableValue">
+          <value var="subject"/>
+        </leftOperand>
+        <rightOperand xsi:type="patternLanguage:VariableValue">
+          <value var="match"/>
+        </rightOperand>
+      </constraints>
+    </bodies>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Match"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Match/team2"/>
+            </type>
+          </tail>
+          <src var="match"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="team"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Team/subject"/>
+            </type>
+          </tail>
+          <src var="team"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="subject"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CompareConstraint" feature="!=">
+        <leftOperand xsi:type="patternLanguage:VariableValue">
+          <value var="subject"/>
+        </leftOperand>
+        <rightOperand xsi:type="patternLanguage:VariableValue">
+          <value var="match"/>
+        </rightOperand>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.TeamMemberNotInContainingTeam" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <annotations name="Constraint">
+      <parameters name="message">
+        <value xsi:type="patternLanguage:StringValue" value="The team member is not assigned to the containing team"/>
+      </parameters>
+      <parameters name="location">
+        <value xsi:type="patternLanguage:VariableValue">
+          <value var="member"/>
+        </value>
+      </parameters>
+      <parameters name="severity">
+        <value xsi:type="patternLanguage:StringValue" value="error"/>
+      </parameters>
+    </annotations>
+    <parameters name="member">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//TeamMember"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Team/bench"/>
+            </type>
+          </tail>
+          <src var="team"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="member"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//TeamMember"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//TeamMember/team"/>
+            </type>
+          </tail>
+          <src var="member"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="otherTeam"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CompareConstraint" feature="!=">
+        <leftOperand xsi:type="patternLanguage:VariableValue">
+          <value var="team"/>
+        </leftOperand>
+        <rightOperand xsi:type="patternLanguage:VariableValue">
+          <value var="otherTeam"/>
+        </rightOperand>
+      </constraints>
+    </bodies>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Team/goalKeeper"/>
+            </type>
+          </tail>
+          <src var="team"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="member"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//TeamMember"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//TeamMember/team"/>
+            </type>
+          </tail>
+          <src var="member"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="otherTeam"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CompareConstraint" feature="!=">
+        <leftOperand xsi:type="patternLanguage:VariableValue">
+          <value var="team"/>
+        </leftOperand>
+        <rightOperand xsi:type="patternLanguage:VariableValue">
+          <value var="otherTeam"/>
+        </rightOperand>
+      </constraints>
+    </bodies>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Team/fieldPlayers"/>
+            </type>
+          </tail>
+          <src var="team"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="member"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//TeamMember"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//TeamMember/team"/>
+            </type>
+          </tail>
+          <src var="member"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="otherTeam"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CompareConstraint" feature="!=">
+        <leftOperand xsi:type="patternLanguage:VariableValue">
+          <value var="team"/>
+        </leftOperand>
+        <rightOperand xsi:type="patternLanguage:VariableValue">
+          <value var="otherTeam"/>
+        </rightOperand>
+      </constraints>
+    </bodies>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Team/subtitutePlayers"/>
+            </type>
+          </tail>
+          <src var="team"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="member"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//TeamMember"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//TeamMember/team"/>
+            </type>
+          </tail>
+          <src var="member"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="otherTeam"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CompareConstraint" feature="!=">
+        <leftOperand xsi:type="patternLanguage:VariableValue">
+          <value var="team"/>
+        </leftOperand>
+        <rightOperand xsi:type="patternLanguage:VariableValue">
+          <value var="otherTeam"/>
+        </rightOperand>
+      </constraints>
+    </bodies>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Team/subtituteGoalKeepers"/>
+            </type>
+          </tail>
+          <src var="team"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="member"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//TeamMember"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//TeamMember/team"/>
+            </type>
+          </tail>
+          <src var="member"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="otherTeam"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CompareConstraint" feature="!=">
+        <leftOperand xsi:type="patternLanguage:VariableValue">
+          <value var="team"/>
+        </leftOperand>
+        <rightOperand xsi:type="patternLanguage:VariableValue">
+          <value var="otherTeam"/>
+        </rightOperand>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.CaptainIsInOtherTeam" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <annotations name="Constraint">
+      <parameters name="message">
+        <value xsi:type="patternLanguage:StringValue" value="The captain of a team should be a member of the team"/>
+      </parameters>
+      <parameters name="location">
+        <value xsi:type="patternLanguage:VariableValue">
+          <value var="team"/>
+        </value>
+      </parameters>
+      <parameters name="severity">
+        <value xsi:type="patternLanguage:StringValue" value="error"/>
+      </parameters>
+    </annotations>
+    <parameters name="team"/>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Team"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Team/captain"/>
+            </type>
+          </tail>
+          <src var="team"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Player"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//TeamMember/team"/>
+            </type>
+          </tail>
+          <src var="player"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="otherTeam"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CompareConstraint" feature="!=">
+        <leftOperand xsi:type="patternLanguage:VariableValue">
+          <value var="otherTeam"/>
+        </leftOperand>
+        <rightOperand xsi:type="patternLanguage:VariableValue">
+          <value var="team"/>
+        </rightOperand>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.EventAfterGameTimeIfEqualInInitialTime" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <annotations name="Constraint">
+      <parameters name="message">
+        <value xsi:type="patternLanguage:StringValue" value="There should be no events after the initial game time unless it is a tie"/>
+      </parameters>
+      <parameters name="location">
+        <value xsi:type="patternLanguage:VariableValue">
+          <value var="event"/>
+        </value>
+      </parameters>
+      <parameters name="severity">
+        <value xsi:type="patternLanguage:StringValue" value="error"/>
+      </parameters>
+    </annotations>
+    <parameters name="event">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Event"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Match"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Match/team1"/>
+            </type>
+          </tail>
+          <src var="match"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="team1"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Match"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Match/team2"/>
+            </type>
+          </tail>
+          <src var="match"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="team2"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Match"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Match/events"/>
+            </type>
+          </tail>
+          <src var="match"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="event"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.5">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="team1"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="goalcount1"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PatternCompositionConstraint">
+        <call patternRef="//@patterns.5">
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="team2"/>
+          </parameters>
+          <parameters xsi:type="patternLanguage:VariableValue">
+            <value var="goalcount2"/>
+          </parameters>
+        </call>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CheckConstraint">
+        <expression xsi:type="xbase:XBinaryOperation">
+          <feature xsi:type="types:JvmOperation" href="java:/Objects/org.eclipse.xtext.xbase.lib.ObjectExtensions#org.eclipse.xtext.xbase.lib.ObjectExtensions.operator_notEquals(java.lang.Object,java.lang.Object)"/>
+          <leftOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.36/@bodies.0/@variables.4"/>
+          <rightOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.36/@bodies.0/@variables.5"/>
+        </expression>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Event"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="event"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="time"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CheckConstraint">
+        <expression xsi:type="xbase:XBinaryOperation">
+          <feature xsi:type="types:JvmOperation" href="java:/Objects/org.eclipse.xtext.xbase.lib.BooleanExtensions#org.eclipse.xtext.xbase.lib.BooleanExtensions.operator_and(boolean,boolean)"/>
+          <leftOperand xsi:type="xbase:XBinaryOperation">
+            <feature xsi:type="types:JvmOperation" href="java:/Objects/org.eclipse.xtext.xbase.lib.IntegerExtensions#org.eclipse.xtext.xbase.lib.IntegerExtensions.operator_greaterThan(int,int)"/>
+            <leftOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.36/@bodies.0/@variables.6"/>
+            <rightOperand xsi:type="xbase:XNumberLiteral" value="2400"/>
+          </leftOperand>
+          <rightOperand xsi:type="xbase:XBinaryOperation">
+            <feature xsi:type="types:JvmOperation" href="java:/Objects/org.eclipse.xtext.xbase.lib.IntegerExtensions#org.eclipse.xtext.xbase.lib.IntegerExtensions.operator_lessEqualsThan(int,int)"/>
+            <leftOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.36/@bodies.0/@variables.6"/>
+            <rightOperand xsi:type="xbase:XNumberLiteral" value="3000"/>
+          </rightOperand>
+        </expression>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.EventAfterFullGameTime" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <annotations name="Constraint">
+      <parameters name="message">
+        <value xsi:type="patternLanguage:StringValue" value="There should be no events after the extra times"/>
+      </parameters>
+      <parameters name="location">
+        <value xsi:type="patternLanguage:VariableValue">
+          <value var="event"/>
+        </value>
+      </parameters>
+      <parameters name="severity">
+        <value xsi:type="patternLanguage:StringValue" value="error"/>
+      </parameters>
+    </annotations>
+    <parameters name="event">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Event"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Event"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="event"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="time"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CheckConstraint">
+        <expression xsi:type="xbase:XBinaryOperation">
+          <feature xsi:type="types:JvmOperation" href="java:/Objects/org.eclipse.xtext.xbase.lib.IntegerExtensions#org.eclipse.xtext.xbase.lib.IntegerExtensions.operator_greaterThan(int,int)"/>
+          <leftOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.37/@bodies.0/@variables.1"/>
+          <rightOperand xsi:type="xbase:XNumberLiteral" value="3000"/>
+        </expression>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.PlayerScoresAfterRedCard" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <annotations name="Constraint">
+      <parameters name="message">
+        <value xsi:type="patternLanguage:StringValue" value="Player with red card should not score goal"/>
+      </parameters>
+      <parameters name="location">
+        <value xsi:type="patternLanguage:VariableValue">
+          <value var="goal"/>
+        </value>
+      </parameters>
+      <parameters name="severity">
+        <value xsi:type="patternLanguage:StringValue" value="error"/>
+      </parameters>
+    </annotations>
+    <parameters name="goal">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Goal"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Goal"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Goal/player"/>
+            </type>
+          </tail>
+          <src var="goal"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Goal"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="goal"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="goalTime"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Fault"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Fault/player"/>
+            </type>
+          </tail>
+          <src var="fault"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Fault"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Fault/type"/>
+            </type>
+          </tail>
+          <src var="fault"/>
+          <dst xsi:type="eMFPatternLanguage:EnumValue">
+            <literal href="http://futsal/1.0#//FaultType/RedCard"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Fault"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="fault"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="faultTime"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CheckConstraint">
+        <expression xsi:type="xbase:XBinaryOperation">
+          <feature xsi:type="types:JvmOperation" href="java:/Objects/org.eclipse.xtext.xbase.lib.ComparableExtensions#org.eclipse.xtext.xbase.lib.ComparableExtensions.operator_greaterThan(java.lang.Comparable,C)"/>
+          <leftOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.38/@bodies.0/@variables.2"/>
+          <rightOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.38/@bodies.0/@variables.4"/>
+        </expression>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.PlayerSubstitutesAfterRedCard" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <annotations name="Constraint">
+      <parameters name="message">
+        <value xsi:type="patternLanguage:StringValue" value="Player with red card should not come into play"/>
+      </parameters>
+      <parameters name="location">
+        <value xsi:type="patternLanguage:VariableValue">
+          <value var="subst"/>
+        </value>
+      </parameters>
+      <parameters name="severity">
+        <value xsi:type="patternLanguage:StringValue" value="error"/>
+      </parameters>
+    </annotations>
+    <parameters name="subst">
+      <type xsi:type="eMFPatternLanguage:ClassType">
+        <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+      </type>
+    </parameters>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Substitution/substitute"/>
+            </type>
+          </tail>
+          <src var="subst"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Substitution"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="subst"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="substTime"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Fault"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Fault/player"/>
+            </type>
+          </tail>
+          <src var="fault"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="player"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Fault"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Fault/type"/>
+            </type>
+          </tail>
+          <src var="fault"/>
+          <dst xsi:type="eMFPatternLanguage:EnumValue">
+            <literal href="http://futsal/1.0#//FaultType/RedCard"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Fault"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="fault"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="faultTime"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CheckConstraint">
+        <expression xsi:type="xbase:XBinaryOperation">
+          <feature xsi:type="types:JvmOperation" href="java:/Objects/org.eclipse.xtext.xbase.lib.ComparableExtensions#org.eclipse.xtext.xbase.lib.ComparableExtensions.operator_greaterThan(java.lang.Comparable,C)"/>
+          <leftOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.39/@bodies.0/@variables.2"/>
+          <rightOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.39/@bodies.0/@variables.4"/>
+        </expression>
+      </constraints>
+    </bodies>
+  </patterns>
+  <patterns name="hu.bme.mit.inf.mvsd.DecreasingEventTime" fileName="platform:/resource/hu.bme.mit.inf.mvsd.queries/src/hu/bme/mit/inf/mvsd/queries.eiq">
+    <annotations name="Constraint">
+      <parameters name="message">
+        <value xsi:type="patternLanguage:StringValue" value="Event times should be monotone increasing"/>
+      </parameters>
+      <parameters name="location">
+        <value xsi:type="patternLanguage:VariableValue">
+          <value var="event"/>
+        </value>
+      </parameters>
+      <parameters name="severity">
+        <value xsi:type="patternLanguage:StringValue" value="error"/>
+      </parameters>
+    </annotations>
+    <parameters name="event"/>
+    <bodies>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Event"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+            </type>
+          </tail>
+          <src var="event"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="time"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:PathExpressionConstraint">
+        <head>
+          <type xsi:type="eMFPatternLanguage:ClassType">
+            <classname xsi:type="ecore:EClass" href="http://futsal/1.0#//Event"/>
+          </type>
+          <tail>
+            <type xsi:type="eMFPatternLanguage:ReferenceType">
+              <refname xsi:type="ecore:EReference" href="http://futsal/1.0#//Event/previous"/>
+            </type>
+            <tail>
+              <type xsi:type="eMFPatternLanguage:ReferenceType">
+                <refname xsi:type="ecore:EAttribute" href="http://futsal/1.0#//Event/time"/>
+              </type>
+            </tail>
+          </tail>
+          <src var="event"/>
+          <dst xsi:type="patternLanguage:VariableValue">
+            <value var="previousTime"/>
+          </dst>
+        </head>
+      </constraints>
+      <constraints xsi:type="patternLanguage:CheckConstraint">
+        <expression xsi:type="xbase:XBinaryOperation">
+          <feature xsi:type="types:JvmOperation" href="java:/Objects/org.eclipse.xtext.xbase.lib.ComparableExtensions#org.eclipse.xtext.xbase.lib.ComparableExtensions.operator_lessThan(java.lang.Comparable,C)"/>
+          <leftOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.40/@bodies.0/@variables.1"/>
+          <rightOperand xsi:type="xbase:XFeatureCall" feature="//@patterns.40/@bodies.0/@variables.2"/>
+        </expression>
+      </constraints>
+    </bodies>
+  </patterns>
+  <importPackages xsi:type="eMFPatternLanguage:PackageImport">
+    <ePackage href="http://futsal/1.0#/"/>
+  </importPackages>
+</eMFPatternLanguage:PatternModel>

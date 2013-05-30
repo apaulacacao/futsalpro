@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013.05.25. 20:05:45 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="hu.bme.mit.mvsd.futsal.core.database.Referee" table="Referee" catalog="futsaldb">
+        <id name="id" type="int">
+            <column name="Id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="account" class="hu.bme.mit.mvsd.futsal.core.database.Account" fetch="select">
+            <column name="AccId" not-null="true" />
+        </many-to-one>
+        <property name="identifier" type="int">
+            <column name="Identifier" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

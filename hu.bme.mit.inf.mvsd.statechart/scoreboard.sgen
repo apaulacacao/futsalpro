@@ -1,0 +1,15 @@
+GeneratorModel for yakindu::java {
+
+	statechart scoreboard {
+
+		feature Outlet {
+			targetProject = "hu.bme.mit.mvsd.statechart"
+			targetFolder = "src-gen"
+		}
+		
+		feature GeneralFeatures {
+			TimerService = true
+			InterfaceObserverSupport = true
+		}
+	}
+}

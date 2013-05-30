@@ -1,0 +1,339 @@
+package hu.bme.mit.inf.mvsd
+
+import "http://futsal/1.0"
+
+// Support
+// Goals
+pattern TeamGoals(team : Team, goal : Goal) {
+	Goal.scorerTeam(goal, team);
+}
+
+pattern TeamGoalCount(team : Team, goalCount) {
+	goalCount == count find TeamGoals(team, _);
+}
+
+pattern TeamGoalsHalfTime(team : Team, goal : Goal) {
+	find TeamGoals(team, goal);
+	Goal.time(goal, timestamp);
+	check(timestamp < 1200);
+}
+
+pattern TeamGoalCountHalftime(team : Team, goalCount) {
+	goalCount == count find TeamGoalsHalfTime(team, _);
+}
+
+pattern TeamGoalsInitialTime(team: Team, goal: Goal){
+	find TeamGoals(team, goal);
+	Goal.time(goal, timestamp);
+	check (timestamp < 2400);
+}
+
+pattern TeamGoalCountInitialTime(team: Team, goalCount){
+	goalCount == count find TeamGoalsInitialTime(team, _);
+}
+
+// Faults
+pattern TeamFaults(team : Team, fault : Fault) {
+	Fault.player.team(fault, team);
+}
+
+pattern TeamFaultsFirstHalf(team : Team, fault : Fault) {
+	find TeamFaults(team, fault);
+	Fault.time(fault, timestamp);
+	check(timestamp < 1200);
+}
+
+pattern TeamFaultCountFirstHalf(team : Team, faultCount){
+	faultCount == count find TeamFaultsFirstHalf(team, _);
+}
+
+pattern TeamFaultsSecondHalf(team : Team, fault : Fault) {
+	find TeamFaults(team, fault);
+	Fault.time(fault, timestamp);
+	check(timestamp >= 1200);
+}
+
+pattern TeamFaultCountSecondHalf(team : Team, faultCount){
+	faultCount == count find TeamFaultsSecondHalf(team, _);
+}
+
+// Timeouts
+pattern TeamTimeouts(team : Team, timeout : TimeOut){
+	TimeOut.team(timeout, team);
+}
+
+pattern TeamTimeoutsFirstHalf(team : Team, timeout : TimeOut){
+	find TeamTimeouts(team, timeout);
+	TimeOut.time(timeout, timestamp);
+	check(timestamp < 1200);
+}
+
+pattern TeamTimeoutsSecondHalf(team : Team, timeout : TimeOut){
+	find TeamTimeouts(team, timeout);
+	TimeOut.time(timeout, timestamp);
+	check(timestamp >= 1200);
+}
+
+// Substitutions
+pattern TeamSubstitutions(team : Team, subst : Substitution) {
+	Substitution.instead.team(subst, team);
+}
+
+pattern TeamSubstitutionCount(team : Team, subsCount){
+	subsCount == count find TeamSubstitutions(team, _);
+}
+
+pattern inSubs(player : Player, substitution : Substitution){
+	Substitution.substitute(substitution, player);
+}
+
+pattern inSubsAfterSubs(player : Player, substitution : Substitution, afterSubs : Substitution){
+	find inSubs(player, substitution);
+	find inSubs(player, afterSubs);
+	Substitution.time(substitution, subsTime);
+	Substitution.time(afterSubs, time);
+	check(subsTime > time);
+} or {
+	find inSubs(player, substitution);
+	find outSubs(player, afterSubs);
+	Substitution.time(substitution, subsTime);
+	Substitution.time(afterSubs, time);
+	check(subsTime > time);
+}
+
+pattern outSubs(player : Player, substitution : Substitution){
+	Substitution.instead(substitution, player);
+}
+
+pattern outSubsAfterSubs(player : Player, beforeSubs : Substitution, afterSubs : Substitution){
+	find outSubs(player, beforeSubs);
+	find outSubs(player, afterSubs);
+	Substitution.time(beforeSubs, subsTime);
+	Substitution.time(afterSubs, time);
+	check(subsTime > time);
+} or {
+	find outSubs(player, beforeSubs);
+	find inSubs(player, afterSubs);
+	Substitution.time(beforeSubs, subsTime);
+	Substitution.time(afterSubs, time);
+	check(subsTime > time);
+}
+
+pattern subs(player : Player, subs : Substitution) {
+	find inSubs(player, subs);
+} or {
+	find outSubs(player, subs);
+}
+
+pattern lastInSubs(player : Player, substitution : Substitution){
+	find inSubs(player, substitution);
+	neg find inSubsAfterSubs(player, _, substitution);
+}
+
+pattern lastOutSubs(player : Player, substitution : Substitution){
+	find outSubs(player, substitution);
+	neg find outSubsAfterSubs(player, _, substitution);
+}
+
+pattern outSubsAfterLastInSubs(player : Player, substitution : Substitution){
+	find lastInSubs(player, inSubs);
+	find outSubsAfterSubs(player, substitution, inSubs);
+}
+
+pattern inSubsAfterLastOutSubs(player : Player, substitution : Substitution){
+	find lastInSubs(player, inSubs);
+	find outSubsAfterSubs(player, substitution, inSubs);
+}
+
+pattern fieldPlayers(team : Team, player : Player){
+	find allPlayers(team, player);
+	find inSubs(player, _);
+	neg find outSubsAfterLastInSubs(player, _);
+} or {
+	Team.fieldPlayers(team, player);
+	neg find outSubs(player, _);
+} or {
+	Team.goalKeeper(team, player);
+	neg find outSubs(player, _);
+}
+
+pattern allPlayers(team : Team, player : Player){
+	Team.fieldPlayers(team, player);
+} or {
+	Team.goalKeeper(team, player);
+} or {
+	Team.subtitutePlayers(team, player);
+} or {
+	Team.subtituteGoalKeepers(team, player);
+}
+
+pattern outInOutSubs(player : Player, out1 : Substitution, in : Substitution, out2 : Substitution){
+	find outSubs(player, out1);
+	find inSubs(player, in);
+	find outSubs(player, out2);
+	Substitution.time(out1, outTime1);
+	Substitution.time(out2, outTime2);
+	Substitution.time(in, inTime);
+	check(outTime1 < outTime2);
+	check(outTime1 < inTime);
+	check(inTime < outTime2);
+}
+
+pattern inOutInSubs(player : Player, in1 : Substitution, out : Substitution, in2 : Substitution){
+	find inSubs(player, in1);
+	find outSubs(player, out);
+	find inSubs(player, in2);
+	Substitution.time(in1, inTime1);
+	Substitution.time(in2, inTime2);
+	Substitution.time(out, outTime);
+	check(inTime1 < inTime2);
+	check(inTime1 < outTime);
+	check(outTime < inTime2);
+}
+
+pattern betweenInSubs(player : Player, before : Substitution, mid : Substitution, after : Substitution) {
+	find inSubs(player, before);
+	find inSubs(player, mid);
+	find inSubs(player, after);
+	Substitution.time(before, befTime);
+	Substitution.time(mid, midTime);
+	Substitution.time(after, aftTime);
+	check(befTime < midTime);
+	check(midTime < aftTime);
+	check(befTime < aftTime);
+}
+
+pattern betweenOutSubs(player : Player, before : Substitution, mid : Substitution, after : Substitution) {
+	find outSubs(player, before);
+	find outSubs(player, mid);
+	find outSubs(player, after);
+	Substitution.time(before, befTime);
+	Substitution.time(mid, midTime);
+	Substitution.time(after, aftTime);
+	check(befTime < midTime);
+	check(midTime < aftTime);
+	check(befTime < aftTime);
+}
+
+pattern invalidSubsCandidate(player : Player, current : Substitution, candidate : Substitution){
+	find outSubs(player, current);
+	find outSubs(player, candidate);
+	current != candidate;
+	neg find outInOutSubs(player, candidate, _, current);
+} or {
+	find inSubs(player, current);
+	find inSubs(player, candidate);
+	current != candidate;
+	neg find inOutInSubs(player, candidate, _, current);
+}
+
+//pattern DuplicateSubstitution(substitution : Substitution) {
+//	Substitution.substitute(substitution, player);
+//	find invalidSubsCandidate(player, _, substitution);
+//} or {
+//	Substitution.instead(substitution, player);
+//	find invalidSubsCandidate(player, _, substitution);
+//}
+
+pattern DuplicateSubstitution(substitution : Substitution) {
+	Substitution.substitute(substitution, player);
+	find inSubs(player, candidate);
+	neg find betweenInSubs(player, candidate, _, substitution);
+	find inOutInSubs(player, candidate, _, substitution);
+} or {
+	Substitution.substitute(substitution, player);
+	find outSubs(player, candidate);
+	neg find betweenOutSubs(player, candidate, _, substitution);
+	find outInOutSubs(player, candidate, _, substitution);
+}
+
+
+// Validate
+
+@Constraint(message="The subject of the team is not the containing match!", location=team, severity="error")
+pattern MatchTeamSubjectInconsistency(match: Match, team: Team){
+	Match.team1(match, team);
+	Team.subject(team, subject);
+	subject != match;
+} or {
+	Match.team2(match, team);
+	Team.subject(team, subject);
+	subject != match;
+}
+
+@Constraint(message="The team member is not assigned to the containing team", location=member, severity="error")
+pattern TeamMemberNotInContainingTeam(member: TeamMember){
+	Team.bench(team, member);
+	TeamMember.team(member, otherTeam);
+	team != otherTeam;
+} or {
+	Team.goalKeeper(team, member);
+	TeamMember.team(member, otherTeam);
+	team != otherTeam;
+} or {
+	Team.fieldPlayers(team, member);
+	TeamMember.team(member, otherTeam);
+	team != otherTeam;
+} or {
+	Team.subtitutePlayers(team, member);
+	TeamMember.team(member, otherTeam);
+	team != otherTeam;
+} or {
+	Team.subtituteGoalKeepers(team, member);
+	TeamMember.team(member, otherTeam);
+	team != otherTeam;
+}
+
+@Constraint(message="The captain of a team should be a member of the team", location=team, severity="error")
+pattern CaptainIsInOtherTeam(team){
+	Team.captain(team, player);
+	Player.team(player, otherTeam);
+	otherTeam != team;
+}
+
+@Constraint(message="There should be no events after the initial game time unless it is a tie", location=event, severity="error")
+pattern EventAfterGameTimeIfEqualInInitialTime(event: Event){
+	Match.team1(match, team1);
+	Match.team2(match, team2);
+	Match.events(match, event);
+	find TeamGoalCountInitialTime(team1, goalcount1);
+	find TeamGoalCountInitialTime(team2, goalcount2);
+	check (goalcount1 != goalcount2);
+	Event.time(event, time);
+	check(time > 2400 && time <= 3000);
+}
+
+@Constraint(message="There should be no events after the extra times", location=event, severity="error")
+pattern EventAfterFullGameTime(event: Event){
+	Event.time(event, time);
+	check(time > 3000);
+}
+
+@Constraint(message="Player with red card should not score goal", location=goal, severity="error")
+pattern PlayerScoresAfterRedCard(goal: Goal){
+	Goal.player(goal, player);
+	Goal.time(goal, goalTime);
+	Fault.player(fault, player);
+	Fault.type(fault, ::RedCard);
+	Fault.time(fault, faultTime);
+	check(goalTime > faultTime);
+}
+
+@Constraint(message="Player with red card should not come into play", location=subst, severity="error")
+pattern PlayerSubstitutesAfterRedCard(subst: Substitution){
+	Substitution.substitute(subst, player);
+	Substitution.time(subst, substTime);
+	Fault.player(fault, player);
+	Fault.type(fault, ::RedCard);
+	Fault.time(fault, faultTime);
+	check(substTime > faultTime);
+}
+
+@Constraint(message="Event times should be monotone increasing", location=event, severity="error")
+pattern DecreasingEventTime(event){
+	Event.time(event, time);
+	Event.previous.time(event, previousTime);
+	check(time<previousTime);
+}
+
+

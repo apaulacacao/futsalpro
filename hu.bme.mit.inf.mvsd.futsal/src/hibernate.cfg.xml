@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory name="FutsalSessionFactory">
+        <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.password">mvsd1234</property>
+        <property name="hibernate.connection.url">jdbc:mysql://mvsdinstance.cqfswpbae2bs.us-west-2.rds.amazonaws.com/futsaldb</property>
+        <property name="hibernate.connection.username">MVSD</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.search.autoregister_listeners">false</property>
+        <mapping class="hu.bme.mit.inf.mvsd.futsal.core.database.Team" />
+        <mapping class="hu.bme.mit.inf.mvsd.futsal.core.database.Pitch" />
+        <mapping class="hu.bme.mit.inf.mvsd.futsal.core.database.Player" />
+        <mapping class="hu.bme.mit.inf.mvsd.futsal.core.database.Supervisor" />
+        <mapping class="hu.bme.mit.inf.mvsd.futsal.core.database.Account" />
+        <mapping class="hu.bme.mit.inf.mvsd.futsal.core.database.GoalKeeper" />
+        <mapping class="hu.bme.mit.inf.mvsd.futsal.core.database.CrewRole" />
+        <mapping class="hu.bme.mit.inf.mvsd.futsal.core.database.Referee" />
+        <mapping class="hu.bme.mit.inf.mvsd.futsal.core.database.Crew" />
+    </session-factory>
+</hibernate-configuration>

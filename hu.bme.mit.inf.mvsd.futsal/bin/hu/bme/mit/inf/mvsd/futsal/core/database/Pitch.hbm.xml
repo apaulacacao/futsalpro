@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013.05.25. 20:05:45 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="hu.bme.mit.mvsd.futsal.core.database.Pitch" table="Pitch" catalog="futsaldb">
+        <id name="id" type="java.lang.Integer">
+            <column name="Id" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="string">
+            <column name="Name" length="100" not-null="true" />
+        </property>
+        <property name="address" type="string">
+            <column name="Address" length="250" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

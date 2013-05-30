@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="hu.bme.mit.inf.mvsd.domain.generated.futsal.presentation.FutsalModelWizardID"
+            name="%_UI_FutsalModelWizard_label"
+            class="hu.bme.mit.inf.mvsd.domain.generated.futsal.presentation.FutsalModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/FutsalModelFile.gif">
+         <description>%_UI_FutsalModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <editor
+            id="hu.bme.mit.inf.mvsd.domain.generated.futsal.presentation.FutsalEditorID"
+            name="%_UI_FutsalEditor_label"
+            icon="icons/full/obj16/FutsalModelFile.gif"
+            extensions="futsal"
+            class="hu.bme.mit.inf.mvsd.domain.generated.futsal.presentation.FutsalEditor"
+            contributorClass="hu.bme.mit.inf.mvsd.domain.generated.futsal.presentation.FutsalActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

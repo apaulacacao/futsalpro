@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="hu.bme.mit.FutsalHtmlReportGeneratorButton.GenerateCommand"
+            name="Generate HTML for the selected match.">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="hu.bme.mit.FutsalHtmlReportGeneratorButton.toolbar1">
+            <command
+                  commandId="hu.bme.mit.FutsalHtmlReportGeneratorButton.GenerateCommand"
+                  label="Generate report"
+                  style="push">
+            </command>
+         </toolbar>
+      </menuContribution>
+   </extension>
+   <!-- This is an extension of "org.eclipse.ui.handlers". -->
+   <extension
+         point="org.eclipse.ui.handlers">
+      <!-- If a command named "hu.bme.mit.JPADataCompileButton.GenerateCommand"
+           fires then call the execute method of the class named
+           "hu.bme.mit.JPADataCompileButton.GenerateCommand".-->
+      <handler
+            class="hu.bme.mit.inf.generatecommandhandler.FutsalReportGenerateCommandHandler"
+            commandId="hu.bme.mit.FutsalHtmlReportGeneratorButton.GenerateCommand">
+      </handler>
+   </extension>
+
+</plugin>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/hu.bme.mit.inf.mvsd.domainmodel/src" editDirectory="/hu.bme.mit.inf.mvsd.domainmodel.edit/src"
+    editorDirectory="/hu.bme.mit.inf.mvsd.domainmodel.editor/src" modelPluginID="hu.bme.mit.inf.mvsd.domainmodel"
+    modelName="Futsal" importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0"
+    copyrightFields="false" editPluginID="hu.bme.mit.inf.mvsd.domainmodel.edit" editorPluginID="hu.bme.mit.inf.mvsd.domainmodel.editor">
+  <foreignModel>futsal.ecore</foreignModel>
+  <genPackages prefix="Futsal" basePackage="hu.bme.mit.inf.mvsd.domain.generated"
+      disposableProviderFactory="true" ecorePackage="futsal.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="futsal.ecore#//CrewRole">
+      <genEnumLiterals ecoreEnumLiteral="futsal.ecore#//CrewRole/Coach"/>
+      <genEnumLiterals ecoreEnumLiteral="futsal.ecore#//CrewRole/Manager"/>
+      <genEnumLiterals ecoreEnumLiteral="futsal.ecore#//CrewRole/Medic"/>
+      <genEnumLiterals ecoreEnumLiteral="futsal.ecore#//CrewRole/Masseur"/>
+      <genEnumLiterals ecoreEnumLiteral="futsal.ecore#//CrewRole/TechnicalManager"/>
+      <genEnumLiterals ecoreEnumLiteral="futsal.ecore#//CrewRole/Other"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="futsal.ecore#//FaultType">
+      <genEnumLiterals ecoreEnumLiteral="futsal.ecore#//FaultType/Penalty"/>
+      <genEnumLiterals ecoreEnumLiteral="futsal.ecore#//FaultType/YellowCard"/>
+      <genEnumLiterals ecoreEnumLiteral="futsal.ecore#//FaultType/RedCard"/>
+    </genEnums>
+    <genClasses ecoreClass="futsal.ecore#//Match">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute futsal.ecore#//Match/date"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference futsal.ecore#//Match/team1"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference futsal.ecore#//Match/team2"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference futsal.ecore#//Match/referee1"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference futsal.ecore#//Match/referee2"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference futsal.ecore#//Match/referee3"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference futsal.ecore#//Match/supervisor"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference futsal.ecore#//Match/Location"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference futsal.ecore#//Match/events"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference futsal.ecore#//Match/firstEvent"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference futsal.ecore#//Match/lastEvent"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute futsal.ecore#//Match/chanmpionship"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute futsal.ecore#//Match/round"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute futsal.ecore#//Match/section"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute futsal.ecore#//Match/ageGroup"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute futsal.ecore#//Match/category"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute futsal.ecore#//Match/season"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute futsal.ecore#//Match/code"/>
+    </genClasses>
+    <genClasses ecoreClass="futsal.ecore#//Pitch">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute futsal.ecore#//Pitch/Name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute futsal.ecore#//Pitch/Address"/>
+    </genClasses>
+    <genClasses ecoreClass="futsal.ecore#//Team">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference futsal.ecore#//Team/subject"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference futsal.ecore#//Team/goalKeeper"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference futsal.ecore#//Team/fieldPlayers"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference futsal.ecore#//Team/subtitutePlayers"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference futsal.ecore#//Team/subtituteGoalKeepers"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference futsal.ecore#//Team/captain"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference futsal.ecore#//Team/bench"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute futsal.ecore#//Team/name"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="futsal.ecore#//Person">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute futsal.ecore#//Person/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute futsal.ecore#//Person/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute futsal.ecore#//Person/dateOfBirth"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute futsal.ecore#//Person/address"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="futsal.ecore#//Official">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute futsal.ecore#//Official/identifier"/>
+    </genClasses>
+    <genClasses ecoreClass="futsal.ecore#//Referee"/>
+    <genClasses ecoreClass="futsal.ecore#//Supervisor"/>
+    <genClasses image="false" ecoreClass="futsal.ecore#//TeamMember">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute futsal.ecore#//TeamMember/licenceNumber"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference futsal.ecore#//TeamMember/team"/>
+    </genClasses>
+    <genClasses ecoreClass="futsal.ecore#//Player">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute futsal.ecore#//Player/squadNumber"/>
+    </genClasses>
+    <genClasses ecoreClass="futsal.ecore#//GoalKeeper"/>
+    <genClasses ecoreClass="futsal.ecore#//Crew">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute futsal.ecore#//Crew/role"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="futsal.ecore#//Event">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute futsal.ecore#//Event/time"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference futsal.ecore#//Event/previous"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference futsal.ecore#//Event/next"/>
+    </genClasses>
+    <genClasses ecoreClass="futsal.ecore#//Goal">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference futsal.ecore#//Goal/player"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference futsal.ecore#//Goal/scorerTeam"/>
+    </genClasses>
+    <genClasses ecoreClass="futsal.ecore#//Fault">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference futsal.ecore#//Fault/player"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute futsal.ecore#//Fault/type"/>
+    </genClasses>
+    <genClasses ecoreClass="futsal.ecore#//TimeOut">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference futsal.ecore#//TimeOut/team"/>
+    </genClasses>
+    <genClasses ecoreClass="futsal.ecore#//Substitution">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference futsal.ecore#//Substitution/substitute"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference futsal.ecore#//Substitution/instead"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

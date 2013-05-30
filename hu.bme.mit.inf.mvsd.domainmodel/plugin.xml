@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://futsal/1.0"
+            class="hu.bme.mit.mvsd.domain.generated.futsal.FutsalPackage"
+            genModel="model/futsal.genmodel"/>
+   </extension>
+
+</plugin>

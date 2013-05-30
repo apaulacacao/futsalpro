@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+	<table-filter match-name="Account" match-catalog="futsaldb"></table-filter>
+	<table-filter match-name="Crew" match-catalog="futsaldb"></table-filter>
+	<table-filter match-name="CrewRole" match-catalog="futsaldb"></table-filter>
+	<table-filter match-name="GoalKeeper" match-catalog="futsaldb"></table-filter>
+	<table-filter match-name="Pitch" match-catalog="futsaldb"></table-filter>
+	<table-filter match-name="Player" match-catalog="futsaldb"></table-filter>
+	<table-filter match-name="Referee" match-catalog="futsaldb"></table-filter>
+	<table-filter match-name="Supervisor" match-catalog="futsaldb"></table-filter>
+	<table-filter match-name="Team" match-catalog="futsaldb"></table-filter>
+	<table catalog="futsaldb" name="GoalKeeper">
+		<primary-key>
+			<key-column name="Id"></key-column>
+		</primary-key>
+		<column name="AccId"></column>
+		<column name="LicenseNumber"></column>
+		<column name="TeamId"></column>
+		<column name="SquadNumber"></column>
+		<foreign-key 
+			constraint-name="GK_ACC"
+			foreign-catalog="futsaldb"
+			foreign-table="Account">
+			<column-ref local-column="AccId" foreign-column="Id"/>
+			<many-to-one property="account"/>
+		</foreign-key>
+		<foreign-key 
+			constraint-name="GK_TM"
+			foreign-catalog="futsaldb"
+			foreign-table="Team">
+			<column-ref local-column="TeamId" foreign-column="Id"/>
+			<many-to-one property="team"/>
+			<set property="goalkeepers"/>
+		</foreign-key>
+	</table>
+	<table catalog="futsaldb" name="Crew">
+		<primary-key>
+			<key-column name="Id"></key-column>
+		</primary-key>
+		<column name="AccId"></column>
+		<column name="LicenseNumber"></column>
+		<column name="TeamId"></column>
+		<column name="RoleId"></column>
+		<foreign-key 
+			constraint-name="CR_ACC"
+			foreign-catalog="futsaldb"
+			foreign-table="Account">
+			<column-ref local-column="AccId" foreign-column="Id"/>
+			<many-to-one property="account"/>
+		</foreign-key>
+		<foreign-key 
+			constraint-name="CR_TM"
+			foreign-catalog="futsaldb"
+			foreign-table="Team">
+			<column-ref local-column="TeamId" foreign-column="Id"/>
+			<many-to-one property="team"/>
+			<set property="crew"/>
+		</foreign-key>
+		<foreign-key 
+			constraint-name="CR_RL"
+			foreign-catalog="futsaldb"
+			foreign-table="CrewRole">
+			<column-ref local-column="RoleId" foreign-column="Id"/>
+			<many-to-one property="role"/>
+		</foreign-key>
+	</table>
+	<table catalog="futsaldb" name="Referee">
+		<primary-key>
+			<key-column name="Id"></key-column>
+		</primary-key>
+		<column name="AccId"></column>
+		<column name="Identifier"></column>
+		<foreign-key 
+			constraint-name="RF_ACC"
+			foreign-catalog="futsaldb"
+			foreign-table="Account">
+			<column-ref local-column="AccId" foreign-column="Id"/>
+			<many-to-one property="account"/>
+		</foreign-key>
+	</table>
+	<table catalog="futsaldb" name="Supervisor">
+		<primary-key>
+			<key-column name="Id"></key-column>
+		</primary-key>
+		<column name="AccId"></column>
+		<column name="Identifier"></column>
+		<foreign-key 
+			constraint-name="SV_ACC"
+			foreign-catalog="futsaldb"
+			foreign-table="Account">
+			<column-ref local-column="AccId" foreign-column="Id"/>
+			<many-to-one property="account"/>
+		</foreign-key>
+	</table>
+	<table catalog="futsaldb" name="Player">
+		<primary-key>
+			<key-column name="Id"></key-column>
+		</primary-key>
+		<column name="AccId"></column>
+		<column name="LicenseNumber"></column>
+		<column name="TeamId"></column>
+		<column name="SquadNumber"></column>
+		<foreign-key 
+			constraint-name="PL_ACC"
+			foreign-catalog="futsaldb"
+			foreign-table="Account">
+			<column-ref local-column="AccId" foreign-column="Id"/>
+			<many-to-one property="account"/>
+		</foreign-key>
+		<foreign-key 
+			constraint-name="PL_TM"
+			foreign-catalog="futsaldb"
+			foreign-table="Team">
+			<column-ref local-column="TeamId" foreign-column="Id"/>
+			<many-to-one property="team"/>
+			<set property="players"/>
+		</foreign-key>
+	</table>
+</hibernate-reverse-engineering>
